@@ -11,6 +11,7 @@
         "flutter",
         "path",
         "path_provider",
+        "sqlite3",
         "sqlite3_flutter_libs"
       ],
       "devDependencies": [
@@ -117,6 +118,18 @@
       "version": "0.5.41",
       "dependencies": [
         "flutter"
+      ]
+    },
+    {
+      "name": "sqlite3",
+      "version": "2.9.4",
+      "dependencies": [
+        "collection",
+        "ffi",
+        "meta",
+        "path",
+        "typed_data",
+        "web"
       ]
     },
     {
@@ -270,18 +283,6 @@
         "collection",
         "meta",
         "source_span"
-      ]
-    },
-    {
-      "name": "sqlite3",
-      "version": "2.9.4",
-      "dependencies": [
-        "collection",
-        "ffi",
-        "meta",
-        "path",
-        "typed_data",
-        "web"
       ]
     },
     {
@@ -571,6 +572,23 @@
       ]
     },
     {
+      "name": "typed_data",
+      "version": "1.4.0",
+      "dependencies": [
+        "collection"
+      ]
+    },
+    {
+      "name": "web",
+      "version": "1.1.1",
+      "dependencies": []
+    },
+    {
+      "name": "ffi",
+      "version": "2.1.5",
+      "dependencies": []
+    },
+    {
       "name": "path_provider_windows",
       "version": "2.3.0",
       "dependencies": [
@@ -617,11 +635,6 @@
         "flutter",
         "path_provider_platform_interface"
       ]
-    },
-    {
-      "name": "web",
-      "version": "1.1.1",
-      "dependencies": []
     },
     {
       "name": "sky_engine",
@@ -671,18 +684,6 @@
       "dependencies": [
         "meta"
       ]
-    },
-    {
-      "name": "typed_data",
-      "version": "1.4.0",
-      "dependencies": [
-        "collection"
-      ]
-    },
-    {
-      "name": "ffi",
-      "version": "2.1.5",
-      "dependencies": []
     },
     {
       "name": "web_socket",

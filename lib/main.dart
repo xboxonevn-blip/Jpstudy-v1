@@ -1,6 +1,13 @@
-﻿import 'package:flutter/material.dart';
+﻿import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
-void main() {
+import 'data/content_db_loader.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (!kIsWeb) {
+    await ensureContentDbReady();
+  }
   runApp(const JPStudyApp());
 }
 
@@ -512,3 +519,4 @@ class _ActionChip extends StatelessWidget {
     );
   }
 }
+

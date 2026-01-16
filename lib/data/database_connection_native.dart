@@ -7,6 +7,6 @@ import 'package:path_provider/path_provider.dart';
 
 Future<QueryExecutor> openPlatformConnectionImpl() async {
   final dir = await getApplicationDocumentsDirectory();
-  final file = File(p.join(dir.path, 'jpstudy.db'));
+  final file = File(p.join(dir.path, 'jpstudy_user.db'));
   return NativeDatabase(file);
 }

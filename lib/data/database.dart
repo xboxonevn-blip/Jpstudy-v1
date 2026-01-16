@@ -3,25 +3,12 @@ import 'package:drift/drift.dart';
 import 'database_connection.dart';
 
 part 'database.g.dart';
-
-const _itemTypeCheck = "item_type IN ('vocab','kanji','grammar')";
 const _errorSourceCheck = "source IN ('C','D')";
 const _attemptSourceCheck = "source IN ('srs','sentence','test','quiz','manual')";
 
-class Items extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get itemType => text().check(const CustomExpression(_itemTypeCheck))();
-  TextColumn get term => text()();
-  TextColumn get reading => text().nullable()();
-  TextColumn get meaning => text()();
-  TextColumn get example => text().nullable()();
-  TextColumn get tags => text().nullable()();
-  TextColumn get createdAt => text()();
-}
-
 class Cards extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get itemId => integer().references(Items, #id)();
+  IntColumn get itemId => integer()();
   TextColumn get dueDate => text()();
   IntColumn get intervalDays => integer().withDefault(const Constant(0))();
   RealColumn get ease => real().withDefault(const Constant(2.2))();
@@ -32,19 +19,9 @@ class Cards extends Table {
   TextColumn get updatedAt => text()();
 }
 
-class Sentences extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  IntColumn get itemId => integer().nullable().references(Items, #id)();
-  TextColumn get sentence => text()();
-  TextColumn get cloze => text().nullable()();
-  TextColumn get answer => text().nullable()();
-  TextColumn get kind => text().withDefault(const Constant('example'))();
-  TextColumn get createdAt => text()();
-}
-
 class Errors extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get itemId => integer().nullable().references(Items, #id)();
+  IntColumn get itemId => integer().nullable()();
   TextColumn get source => text().check(const CustomExpression(_errorSourceCheck))();
   TextColumn get errorType => text()();
   TextColumn get note => text().nullable()();
@@ -76,9 +53,9 @@ class ReviewLogs extends Table {
 
 class Attempts extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get itemId => integer().nullable().references(Items, #id)();
+  IntColumn get itemId => integer().nullable()();
   IntColumn get cardId => integer().nullable().references(Cards, #id)();
-  IntColumn get sentenceId => integer().nullable().references(Sentences, #id)();
+  IntColumn get sentenceId => integer().nullable()();
   IntColumn get testId => integer().nullable().references(Tests, #id)();
   IntColumn get testAttemptId => integer().nullable().references(TestAttempts, #id)();
   TextColumn get source => text().check(const CustomExpression(_attemptSourceCheck))();
@@ -93,7 +70,7 @@ class Attempts extends Table {
 
 class Mistakes extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get itemId => integer().references(Items, #id)();
+  IntColumn get itemId => integer()();
   IntColumn get cardId => integer().nullable().references(Cards, #id)();
   TextColumn get source => text().check(const CustomExpression(_attemptSourceCheck))();
   IntColumn get mistakeCount => integer().withDefault(const Constant(1))();
@@ -108,9 +85,7 @@ class Mistakes extends Table {
 
 @DriftDatabase(
   tables: [
-    Items,
     Cards,
-    Sentences,
     Errors,
     Tests,
     TestAttempts,
@@ -138,7 +113,6 @@ class JPStudyDatabase extends _$JPStudyDatabase {
 
   Future<void> _createIndexes() async {
     await customStatement('CREATE INDEX IF NOT EXISTS idx_cards_due ON cards(due_date);');
-    await customStatement('CREATE INDEX IF NOT EXISTS idx_items_type ON items(item_type);');
     await customStatement('CREATE INDEX IF NOT EXISTS idx_errors_item ON errors(item_id);');
     await customStatement(
       'CREATE INDEX IF NOT EXISTS idx_review_logs_date ON review_logs(substr(created_at,1,10));',
