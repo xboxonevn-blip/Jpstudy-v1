@@ -121,10 +121,9 @@ class NavItem {
 }
 
 const List<NavItem> _navItems = [
-  NavItem(label: 'A - Import', route: '/a', view: ImportView()),
-  NavItem(label: 'B - SRS', route: '/b', view: SrsView()),
-  NavItem(label: 'C - Cloze', route: '/c', view: ClozeView()),
-  NavItem(label: 'D - Test', route: '/d', view: TestView()),
+  NavItem(label: 'A - SRS', route: '/a', view: SrsView()),
+  NavItem(label: 'B - Cloze', route: '/b', view: ClozeView()),
+  NavItem(label: 'C - Test', route: '/c', view: TestView()),
 ];
 
 int _indexForRoute(String? name) {
@@ -334,53 +333,6 @@ class GradeButton extends StatelessWidget {
   }
 }
 
-class ImportView extends StatelessWidget {
-  const ImportView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final titleStyle = Theme.of(context).textTheme.titleLarge;
-    final subtitleStyle = Theme.of(context).textTheme.bodySmall;
-
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      children: [
-        Text('A - Import', style: titleStyle),
-        const SizedBox(height: 8),
-        Text('Import CSV or add cards manually.', style: subtitleStyle),
-        SectionCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Actions', style: Theme.of(context).textTheme.titleMedium),
-              const SizedBox(height: 12),
-              const Wrap(
-                spacing: 12,
-                runSpacing: 8,
-                children: [
-                  _ActionChip(label: 'Import CSV'),
-                  _ActionChip(label: 'Auto Import'),
-                  _ActionChip(label: 'Add item'),
-                ],
-              ),
-            ],
-          ),
-        ),
-        SectionCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Preview table', style: Theme.of(context).textTheme.titleMedium),
-              const SizedBox(height: 8),
-              Text('Latest items will show here.', style: subtitleStyle),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class SrsView extends StatelessWidget {
   const SrsView({super.key});
 
@@ -392,7 +344,7 @@ class SrsView extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       children: [
-        Text('B - SRS Review', style: titleStyle),
+        Text('A - SRS Review', style: titleStyle),
         const SizedBox(height: 8),
         Text('Queue: 0 | JLPT: all | tag: all', style: subtitleStyle),
         SectionCard(
@@ -432,7 +384,7 @@ class ClozeView extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       children: [
-        Text('C - Cloze Practice', style: titleStyle),
+        Text('B - Cloze Practice', style: titleStyle),
         const SizedBox(height: 8),
         Text('Queue: 0 (mistakes first)', style: subtitleStyle),
         SectionCard(
@@ -474,7 +426,7 @@ class TestView extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       children: [
-        Text('D - Mini Test', style: titleStyle),
+        Text('C - Mini Test', style: titleStyle),
         const SizedBox(height: 8),
         Text('Mode: mix | JLPT: all | tag: all', style: subtitleStyle),
         SectionCard(
